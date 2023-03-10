@@ -15,6 +15,11 @@ class ConfigReader:
             all_keys.append(self.config[self.api_key_section][key_name])
         return all_keys
 
+    def fetch_api_key(self, service_name):
+        return self.config[self.api_key_section][service_name]
+
 if __name__ == "__main__":
     conf_obj = ConfigReader()
     print(conf_obj.fetch_all_api_keys())
+    val = conf_obj.fetch_api_key("YelpKey")
+    print(f"Config file value: {val}")
