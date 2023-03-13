@@ -24,3 +24,7 @@ yarn-error.log*
 
 # python
 */*.pyc
+dashboard/discover-score/package-lock.json
+src/gen_granular_data/__pycache__/granular_data_processor.cpython-310.pyc
+dashboard/discover-score/package-lock.json
+dashboard/discover-score/package-lock.json
