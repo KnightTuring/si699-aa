@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from granular_data_processor import GranularDataProcessor
 
 app = Flask(__name__)
 api = Api(app)
+granular_data_processor = GranularDataProcessor()
 
 class Initialize(Resource):
     def get(self):
@@ -10,8 +12,8 @@ class Initialize(Resource):
 
 class ServeBusinessData(Resource):
     def get(self):
-        return [{'name': 'Test_1', 'lat': 42.36414, 'lng': -83.08835, 'avg_rating': 4.5},
-        {'name': 'Test_2', 'lat': 42.3128699, 'lng': -83.12296, 'avg_rating': 4.0}]
+        granular_data = granular_data_processor.serve_granular_data()
+        return granular_data
 
 api.add_resource(Initialize, '/')
 api.add_resource(ServeBusinessData, '/ServeBData')
