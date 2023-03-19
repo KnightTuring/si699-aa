@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 import './App.css';
-import DataView from './components/DataView'
-import MapView from './components/MapView';
-import { bDataReq } from './utils';
-function App() {
-  const [granularData, setGranularData] = useState([])
+import View from './components/View'
 
-  useEffect(() => {
-    bDataReq(setGranularData)
-  })
+function App() {
+
+  const [granularView, setGranularView] = useState(false)
 
   return (
     <div className="App">
@@ -23,12 +19,7 @@ function App() {
           </li>
         </ul>
       </div>
-      <div className='main-disp-container'>
-          <div className='container vertical-scrollable'>
-            <DataView granularData = {granularData}/>
-          </div>
-          <MapView granularData = {granularData}/>
-      </div>
+      <View showGranularView={granularView}/>
     </div>
   );
 }
