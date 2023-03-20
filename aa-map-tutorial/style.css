@@ -1,0 +1,19 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/* Set the size of the div element that contains the map */
+#map {
+  height: 800px; /* The height is 400 pixels */
+  width: 50%; /* The width is the width of the web page */
+  padding: 50px;
+}
+
+.container {
+  padding-top: 10px;
+}
+
+#message {
+  padding-top: 10px;
+}
