@@ -7,14 +7,15 @@ import TractDataView from './TractDataView'
 import { bDataReq } from "../utils";
 
 const View = (props) => {
-    const {showGranularView} = {props}
+    const {showGranularView} = props
     const [granularData, setGranularData] = useState([])
 
     useEffect(() => {
         bDataReq(setGranularData)
     })
 
-    if(showGranularView === false) {
+    if(showGranularView === true) {
+        console.log("Showing granular view")
         return (
             <div className='main-disp-container'>
               <div className='container vertical-scrollable'>
@@ -24,6 +25,7 @@ const View = (props) => {
           </div>
         )
     } else {
+      console.log("Showing tract view")
         return (
             <div className='main-disp-container'>
               <div className='container vertical-scrollable'>
