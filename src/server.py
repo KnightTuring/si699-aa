@@ -13,11 +13,12 @@ class BusinessData(Resource):
 
 class BusinessDataForTract(Resource):
     def get(self, tract_num):
-        
+        tract_granular_data = granular_data_proc.serve_granular_data_for_tract(tract_num)
+        return tract_granular_data
 
 class TractData(Resource):
     def get(self):
-        tract_data = tdp.serve_tract_data()
+        tract_data = tdp.serve_enriched_tract_data()
         return tract_data
 
 

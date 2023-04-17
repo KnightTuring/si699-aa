@@ -24,7 +24,7 @@ function App() {
             </li>
           </ul>
         </div>
-        <View showGranularView={granularView} fetchData={refreshData}/>
+        <View showGranularView={granularView} fetchData={refreshData} setGranularView = {setGranularView}/>
       </div>
     );
   }
@@ -44,7 +44,7 @@ function App() {
             </li>
           </ul>
         </div>
-        <View showGranularView={granularView} fetchData={refreshData}/>
+        <View showGranularView={granularView} fetchData={refreshData} setGranularView = {setGranularView}/>
       </div>
     );
   }

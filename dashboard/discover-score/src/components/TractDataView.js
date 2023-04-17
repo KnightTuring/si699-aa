@@ -8,7 +8,7 @@ import React from 'react';
 //         "avg_sent": "0.20183016422417488",
 //         "biz_count": "19"
 const TractDataView = (props) => {
-    const { tractData } = props
+    const { tractData, setTractFocus } = props
     return (
         <>
             <ul className='list-group list-group-flush vertical-scrollable' style={{height: '100vh', overflow: 'auto'}}>
@@ -17,18 +17,19 @@ const TractDataView = (props) => {
                         <div className="card" style={{width: '18rem'}}>
                             {/* <img className="card-img-top" src="..." alt="Card image cap" /> */}
                             <div className="card-body">
-                                <h5 className="card-title">FIPS: {value.FIPS}</h5>
+                                <h5 className="card-title">FIPS: {value.fips}</h5>
                                 {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                             </div>
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item">Population: {value.population} </li>
-                                <li className="list-group-item">Businesses count: {value.biz_count} </li>
-                                <li className="list-group-item">Avg. property value: ${value.property_val}</li>
-                                <li className="list-group-item">Mean rating: {value.mean_rating}</li>
-                                <li className="list-group-item">Total review count: {value.total_review_count}</li>
+                            <li className="list-group-item"><b>Health score: </b><button type="button" class="btn btn-primary btn-square-md">{parseFloat(value.total).toFixed(4)}</button></li>
+                                <li className="list-group-item">Number of businesses: {value.n_biz} </li>
+                                <li className="list-group-item">Avg. rating {parseFloat(value.avg_rating).toFixed(2)} </li>
+                                <li className="list-group-item">No. of reviews: {value.n_reviews}</li>
+                                <li className="list-group-item">Unemployment: {parseFloat(value.unemp).toFixed(2)}</li>
+                                <li className="list-group-item">Property value: {value.prop_value}</li>
                             </ul>
                             <div className="card-body">
-                                <a href="#" className="card-link"></a>
+                                <a href="#" className="card-link" onClick={(e) => setTractFocus(parseInt(value.fips))}>Show on map</a>
                             </div>
                         </div>
                     </li>

@@ -17,9 +17,10 @@ const DataView = (props) => {
                                 <li className="list-group-item">Rating: {value.rating}</li>
                                 <li className="list-group-item">Review count: {value.yelp_review_count}</li>
                                 <li className="list-group-item">Crime count: {value.crime_count}</li>
+                                <li className="list-group-item">FIPS: {value.census_tract_fips}</li>
                             </ul>
                             <div className="card-body">
-                                <a href="#" className="card-link">Link</a>
+                                <a href={value.url} className="card-link">Yelp!</a>
                             </div>
                         </div>
                     </li>
