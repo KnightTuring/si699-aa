@@ -39,21 +39,21 @@ var heatmap = new google.maps.visualization.HeatmapLayer({
 
 */
 
-    map.data.loadGeoJson('newermap.geojson');
+    map.data.loadGeoJson('health_score.geojson');
 
     map.data.setStyle((feature) => {
-        var pop = feature.getProperty('pop_population');
+        var pop = feature.getProperty('final_tract_stats_total');
         var fcolor = "";
         switch(true) {
         case ( pop == 0 || pop === null):
             fcolor = '#d4d4d4'; break;
-        case ( pop <= 1383 ): fcolor = '#F4EB89'; break;
-	    case ( pop <= 2005): fcolor = '#C4CE7B'; break;
-	    case ( pop <= 2560 ): fcolor = '#99B16E'; break;
-	    case ( pop <= 3020 ): fcolor = '#749361'; break;
-	    case ( pop <= 3612 ): fcolor = '#547553'; break;
-	    case ( pop <= 4384 ): fcolor = '#395842'; break;
-	    case ( pop <= 7688 ): fcolor = '#233B30'; break;
+        case ( pop <= 0.31 ): fcolor = '#F4EB89'; break;
+	    case ( pop <= 0.385): fcolor = '#C4CE7B'; break;
+	    case ( pop <= 0.443 ): fcolor = '#99B16E'; break;
+	    case ( pop <= 0.502 ): fcolor = '#749361'; break;
+	    case ( pop <= 0.57 ): fcolor = '#547553'; break;
+	    case ( pop <= 0.643 ): fcolor = '#395842'; break;
+	    case ( pop <= 1 ): fcolor = '#233B30'; break;
 	    default: fcolor = '#d4d4d4'; break;
     }
     return {
