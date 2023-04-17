@@ -6,6 +6,7 @@ import View from './components/View'
 function App() {
 
   const [granularView, setGranularView] = useState(false)
+  const [refreshData, setRefreshData] = useState(false)
 
   if(granularView === false) {
     return (
@@ -18,9 +19,12 @@ function App() {
             <li className="nav-item">
               <a className="nav-link" id="pills-profile-tab" data-toggle="pill" type="button" role="tab" aria-controls="pills-profile" aria-selected="true" onClick={() => setGranularView(true)}>Granular view</a>
             </li>
+            <li className='nav-item'>
+              <button type="button" class="btn btn-outline-info" onClick={() => setRefreshData(!refreshData)}>Refresh</button>
+            </li>
           </ul>
         </div>
-        <View showGranularView={granularView}/>
+        <View showGranularView={granularView} fetchData={refreshData}/>
       </div>
     );
   }
@@ -35,9 +39,12 @@ function App() {
             <li className="nav-item">
               <a className="nav-link active" id="pills-profile-tab" data-toggle="pill" type="button" role="tab" aria-controls="pills-profile" aria-selected="true" onClick={() => setGranularView(true)}>Granular view</a>
             </li>
+            <li className='nav-item'>
+              <button type="button" class="btn btn-outline-info" onClick={() => setRefreshData(!refreshData)}>Refresh</button>
+            </li>
           </ul>
         </div>
-        <View showGranularView={granularView}/>
+        <View showGranularView={granularView} fetchData={refreshData}/>
       </div>
     );
   }

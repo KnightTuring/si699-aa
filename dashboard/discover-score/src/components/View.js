@@ -4,15 +4,24 @@ import MapView from './MapView';
 import TractMapView from './TractMapView'
 import TractDataView from './TractDataView'
 
-import { bDataReq } from "../utils";
+import { bDataReq, tractDataReq } from "../utils";
 
 const View = (props) => {
-    const {showGranularView} = props
+    const {showGranularView, fetchData} = props
     const [granularData, setGranularData] = useState([])
+    const [tractData, setTractData] = useState([])
 
     useEffect(() => {
+      console.log("Refreshing business data")
         bDataReq(setGranularData)
-    })
+    }, [fetchData])
+
+    useEffect(() => {
+      console.log("Refreshing tract data")
+        tractDataReq(setTractData)
+    }, [fetchData])
+
+
 
     if(showGranularView === true) {
         console.log("Showing granular view")
@@ -29,9 +38,9 @@ const View = (props) => {
         return (
             <div className='main-disp-container'>
               <div className='container vertical-scrollable'>
-                <TractDataView granularData = {granularData}/>
+                <TractDataView tractData = {tractData}/>
               </div>
-              <TractMapView granularData = {granularData}/>
+              <TractMapView tractData = {tractData}/>
           </div>
         )
     }

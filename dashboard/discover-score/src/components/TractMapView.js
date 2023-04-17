@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useLoadScript, Polygon } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Polygon, MarkerF, InfoBoxF } from "@react-google-maps/api";
 import tract_polygon from "./tract_polygon.json"
 
 export default function Home(props) {
@@ -11,16 +11,17 @@ export default function Home(props) {
   return <TractMapView/>;
 }
 
-function renderRegions() {
+function renderTractPolygons() {
   return tract_polygon.map(each_polygon => {
     let coordArr = []
     let region = each_polygon.geometry
+    let fips = each_polygon.properties.TRACTCE
     let coordinates = region.coordinates[0][0]
     let pop = each_polygon.properties.pop_population
     coordinates.map(coordinate => coordArr.push({lat: coordinate[1], lng: coordinate[0]}))
     var fcolor = "";
     switch(true) {
-      case ( pop == 0 || pop === null): fcolor = '#d4d4d4'; break;
+      case ( pop === 0 || pop === null): fcolor = '#d4d4d4'; break;
       case ( pop <= 1383 ): fcolor = '#F4EB89'; break;
 	    case ( pop <= 2005): fcolor = '#C4CE7B'; break;
 	    case ( pop <= 2560 ): fcolor = '#99B16E'; break;
@@ -30,7 +31,8 @@ function renderRegions() {
 	    case ( pop <= 7688 ): fcolor = '#233B30'; break;
 	    default: fcolor = '#d4d4d4'; break;
     }
-    console.log("coords", coordArr)
+    // console.log('FIPS', fips)
+    // console.log("coords", coordArr)
     return (
       <Polygon
         path={coordArr}
@@ -40,9 +42,41 @@ function renderRegions() {
           strokeColor: 'white',
           fillOpacity: 0.7,
           strokeOpacity: 1,
-          zIndex: 0
+          zIndex: 0,
+          geodesic: fips
       }}
+      onLoad={(e) => {console.log("Polygon loaded", e)}}
+      onClick={(e) => console.log("Clicked", e)}
       />
+    )
+  });
+}
+
+function renderTractPolygonLabels() {
+  return tract_polygon.map(each_polygon => {
+    let coordArr = []
+    let region = each_polygon.geometry
+    let coordinates = region.coordinates[0][0]
+    let fips = each_polygon.properties.TRACTCE
+    coordinates.map(coordinate => coordArr.push({lat: coordinate[1], lng: coordinate[0]}))
+    let bounds = new window.google.maps.LatLngBounds();
+    for(var i=0; i<coordArr.length; i++) {
+      bounds.extend(coordArr[i])
+    }
+    // get center of polygon
+    let polygonCenter = bounds.getCenter().toJSON()
+    console.log("Polygon center", polygonCenter)
+    var fcolor = "";
+    return (
+      <MarkerF
+        icon={" "}
+        position={{ lat: polygonCenter.lat, lng: polygonCenter.lng }}
+        label={ fips }
+      />
+      // <InfoBoxF
+      //   position={{ lat: polygonCenter.lat, lng: polygonCenter.lng }}
+      //   content = {fips}
+      // />
     )
   });
 }
@@ -50,12 +84,10 @@ function renderRegions() {
 const TractMapView = (props) => {
   const [center] = useState({lat: 42.37, lng: -83.11})
 
-  useEffect(() => {
-  })
-
   return (
-    <GoogleMap zoom={12} center={center} mapContainerClassName="map-container">
-      {renderRegions()}
+    <GoogleMap zoom={15} center={center} mapContainerClassName="map-container">
+      {renderTractPolygons()}
+      {renderTractPolygonLabels()}
     </GoogleMap>
   );
 }
